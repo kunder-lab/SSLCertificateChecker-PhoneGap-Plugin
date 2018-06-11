@@ -38,13 +38,20 @@
     
     CFIndex count = SecTrustGetCertificateCount(trustRef);
     
+    //NSLog(@"_serverDomain: %@", self._serverDomain);
+    //NSLog(@"_allowedFingerprint: %@", self._allowedFingerprint);
+
     for (CFIndex i = 0; i < count; i++) {
         SecCertificateRef certRef = SecTrustGetCertificateAtIndex(trustRef, i);
         NSString* fingerprint = [self getFingerprint:certRef];
 
+        //NSLog(@"fingerprint: %@", fingerprint);
+
         CFStringRef commonNameRef = NULL;
         SecCertificateCopyCommonName(certRef, &commonNameRef);
-        NSString commonName = (__bridge NSString *)commonNameRef);
+        NSString* commonName = (__bridge NSString *)commonNameRef;
+
+        //NSLog(@"commonName: %@", commonName);
         
         if ([fingerprint caseInsensitiveCompare: self._allowedFingerprint] == NSOrderedSame) {
             self.isFingerprintOK = TRUE;
@@ -55,7 +62,9 @@
         }
     }
 
-    if (seld.isFingerprintOK && self.isCommonNameOK) {
+    //NSLog(@"==============================");
+
+    if (self.isFingerprintOK && self.isCommonNameOK) {
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"CONNECTION_SECURE"];
         [self._plugin.commandDelegate sendPluginResult:pluginResult callbackId:self._callbackId];
     } 
@@ -80,7 +89,7 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     connection = nil;
-    if (![self sentResponse]) {
+    if (![self isFingerprintOK] && ![self isCommonNameOK]) {
         NSLog(@"Connection was not checked because it was cached. Considering it secure to not break your app.");
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"CONNECTION_SECURE"];
         [self._plugin.commandDelegate sendPluginResult:pluginResult callbackId:self._callbackId];
@@ -122,7 +131,7 @@
 
     CustomURLConnectionDelegate *delegate = [[CustomURLConnectionDelegate alloc] initWithPlugin:self//No cambiar self por plugin ya que deja de funcionar
                                                                                      callbackId:command.callbackId
-                                                                                     serverDomain: [serverURL substringToIndex:7]
+                                                                                     serverDomain: [serverURL substringFromIndex:8]
                                                                             allowedFingerprint:[command.arguments objectAtIndex:1]];
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 
