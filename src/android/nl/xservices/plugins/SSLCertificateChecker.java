@@ -61,14 +61,11 @@ public class SSLCertificateChecker extends CordovaPlugin {
 
                 if (isFingerprintOK && isCommonNameOK) {
                     callbackContext.success("CONNECTION_SECURE");
-                    Log.v(TAG, "CONNECTION_SECURE");
                 } else {
                     callbackContext.error("CONNECTION_NOT_SECURE");
-                    Log.v(TAG, "CONNECTION_NOT_SECURE");
                 }
             } catch (Exception e) {
                 callbackContext.error("CONNECTION_FAILED");
-                Log.v(TAG, "CONNECTION_FAILED");
             }
             return true;
         }
