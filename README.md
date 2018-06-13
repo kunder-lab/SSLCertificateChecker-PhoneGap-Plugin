@@ -40,6 +40,7 @@ You can find it f.i. by opening the server URL in Chrome. Then click the green c
   window.plugins.sslCertificateChecker.check(
           successCallback,
           errorCallback,
+          environment,
           server,
           fingerprint);
 
