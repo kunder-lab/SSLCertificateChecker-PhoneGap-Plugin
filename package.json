@@ -33,7 +33,6 @@
   ],
   "author": "kunder",
   "license": "MIT",
-  ,
   "bugs": {
     "url": "https://github.com/kunder-lab/cordova-plugin-kunder-sslcertificatechecker/issues"
   },
