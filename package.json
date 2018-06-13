@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-kunder-sslcertificatechecker",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "description": "This plugin allows allows you to check the SSL Certificate of the server you're connecting to. This can be useful for prevention of Man In The Middle attacks.",
   "cordova": {
     "id": "cordova-plugin-kunder-sslcertificatechecker",
@@ -32,5 +32,9 @@
     }
   ],
   "author": "kunder",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kunder-lab/cordova-plugin-kunder-sslcertificatechecker/issues"
+  },
+  "homepage": "https://github.com/kunder-lab/cordova-plugin-kunder-sslcertificatechecker#readme"
 }
