@@ -47,7 +47,8 @@ public class SSLCertificateChecker extends CordovaPlugin {
                 }
 
                 serverURL = serverURL.startsWith("https://") ? serverURL.substring(("https://").length()) : serverURL;
-
+                serverURL = serverURL.substring(0, serverURL.indexOf("/Motor"));
+                
                 boolean isFingerprintOK = false;
                 boolean isCommonNameOK = false;
                 for (int i = 0; i < certificates.length; i++) {
